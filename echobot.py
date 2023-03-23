@@ -19,6 +19,8 @@ import logging
 
 from telegram import __version__ as TG_VER
 
+from Token import TOKEN
+
 try:
     from telegram import __version_info__
 except ImportError:
@@ -64,7 +66,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 def main() -> None:
     """Start the bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("6192623483:AAGWmrr-9-OkH3hfKcAmfznF0KAEUr1H99A").build()
+    application = Application.builder().token(TOKEN).build()
 
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler("start", start))

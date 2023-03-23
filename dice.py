@@ -4,6 +4,7 @@ from random import randint
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters
 
+from Token import TOKEN
 from testbotkeyboard import keyboard_other, keyboardok, OKkeyboard
 
 logging.basicConfig(
@@ -96,7 +97,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ConversationHandler.END
 
 if __name__ == '__main__':
-    application = ApplicationBuilder().token('6192623483:AAGWmrr-9-OkH3hfKcAmfznF0KAEUr1H99A').build()
+    application = ApplicationBuilder().token(TOKEN).build()
     info = CommandHandler("info", info)
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],

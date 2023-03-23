@@ -3,6 +3,8 @@ import logging
 
 from telegram import __version__ as TG_VER
 
+from Token import TOKEN
+
 try:
     from telegram import __version_info__
 except ImportError:
@@ -134,7 +136,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 def main() -> None:
     """Run the bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("6192623483:AAGWmrr-9-OkH3hfKcAmfznF0KAEUr1H99A").build()
+    application = Application.builder().token(TOKEN).build()
 
     # Add conversation handler with the states GENDER, PHOTO, LOCATION and BIO
     conv_handler = ConversationHandler(
