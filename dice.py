@@ -29,25 +29,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     return choice
 
-"""async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    if query == "1":
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="You throw 1 dice",
-                                       reply_markup=keyboardok)
-
-
-    elif query == "2":
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="You throw 2 dice",
-                                       reply_markup=keyboardok)
-
-
-    else:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="You throw 3 dice",
-                                       reply_markup=keyboardok)
-
-
-    return after"""
-
 
 async def choicef(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Choose how many dices you want to throw",
