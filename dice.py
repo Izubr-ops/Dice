@@ -1,8 +1,10 @@
 import logging
 from random import randint
+from uuid import uuid4
 
-from telegram import Update, ReplyKeyboardRemove
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters
+from telegram import Update, ReplyKeyboardRemove, InlineQueryResultArticle, InputTextMessageContent
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters, \
+    InlineQueryHandler
 
 from Token import TOKEN
 from testbotkeyboard import keyboard_other, keyboardok, OKkeyboard
@@ -77,6 +79,37 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     return ConversationHandler.END
 
+async def inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    query = update.inline_query.query
+    if query == "":
+        return
+
+    elif len(query) == 1 and query.isdigit()\
+        and query in ["1", "2", "3"]:
+
+        results = [
+        InlineQueryResultArticle(
+            id=str(uuid4()),
+            title="🎲",
+            input_message_content=InputTextMessageContent(f"You get {str(randint(1, 6))}🎲")
+        ),
+        InlineQueryResultArticle(
+            id=str(uuid4()),
+            title="🎲🎲",
+            input_message_content=InputTextMessageContent(f"You get {str(randint(2, 12))}🎲🎲"),
+        ),
+        InlineQueryResultArticle(
+            id=str(uuid4()),
+            title="🎲🎲🎲",
+            input_message_content=InputTextMessageContent(f"You get {str(randint(3, 18))}🎲🎲🎲"),
+        )
+    ]
+
+        await update.inline_query.answer(results)
+
+
+
+
 if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN).build()
     info = CommandHandler("info", info)
@@ -97,5 +130,6 @@ if __name__ == '__main__':
         fallbacks=[CommandHandler("cancel", cancel)]
     )
     application.add_handlers([conv_handler, info])
+    application.add_handler(InlineQueryHandler(inline_query))
 
     application.run_polling()
